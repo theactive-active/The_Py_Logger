@@ -92,3 +92,7 @@ Ethical Use Cases
 	•	Experimenting on your own machine for defensive learning.
 
 ⚠️ Never use this for malicious purposes. Unauthorized use is illegal and punishable by law.
+
+Clear-Content -Path "$env:USERPROFILE\.hidden_keystrokes.log" -Force
+
+Get-Item "$env:USERPROFILE\.hidden_keystrokes.log" | Select-Object FullName,Length
