@@ -1,0 +1,4 @@
+# requirements for keylogger_local_hidden
+# Pin exact versions to ensure reproducible installs. Edit if you need a newer version.
+
+pynput==1.7.6
